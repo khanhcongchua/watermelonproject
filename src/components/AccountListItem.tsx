@@ -1,17 +1,27 @@
 import { View, Text,StyleSheet } from "react-native";
 import Account from "../model/Account";
 import { withObservables } from '@nozbe/watermelondb/react';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import database from "../db";
 
 type AccountListItem = {
     account: Account;
 }
 
 function AccountListItem({account}: AccountListItem){
+
+    const onDelete = async() => {
+        await database.write(async () =>{
+            await account.markAsDeleted();
+        });
+    };
+
     return(
         <View style={styles.container}>
             <Text style={styles.name}>{account.name}</Text>
             <Text style={styles.percentstage}>{account.cap}%</Text>
             <Text style={styles.percentstage}>{account.tap}%</Text>
+            <AntDesign name="delete" size={24} color="grey"  onPress={onDelete}/>
         </View>
     )
 }
@@ -37,8 +47,12 @@ const styles = StyleSheet.create({
     name:{
         fontWeight:'bold',
         fontSize: 16,
+        flex:1,
         
     },
-    percentstage:{}
+    percentstage:{
+        flex:1,
+
+    }
 
 });
