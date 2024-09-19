@@ -3,19 +3,21 @@ import AccountListItem from "./AccountListItem";
 import { useEffect, useState } from "react";
 import { accountsCollection } from "../db";
 import Account from "../model/Account";
-
-export default function AccountList(){
-
-    const [accounts, setAccounts] = useState<Account[]>([]);
+import { withObservables } from '@nozbe/watermelondb/react';
 
 
-    useEffect(() =>{
-        const fetchAccounts = async () =>{
-            const accounts = await accountsCollection.query().fetch();
-            setAccounts(accounts);
-        }
-        fetchAccounts();
-    }, [])
+ function AccountList({accounts} : {accounts: Account[]}){
+
+    // const [accounts, setAccounts] = useState<Account[]>([]);
+
+
+    // useEffect(() =>{
+    //     const fetchAccounts = async () =>{
+    //         const accounts = await accountsCollection.query().fetch();
+    //         setAccounts(accounts);
+    //     }
+    //     fetchAccounts();
+    // }, [])
 
     
 
@@ -23,8 +25,26 @@ export default function AccountList(){
     return(
         <FlatList 
             data={accounts}
-            contentContainerStyle={{gap: 5, }}
+            contentContainerStyle={{gap: 5 }}
             renderItem={({item}) => <AccountListItem account = {item}/>}
         />
     );
 }
+
+const enhance = withObservables([], (account) => ({
+    accounts: accountsCollection.query(),
+}));
+
+// const EnhancedAccountList = enhance(AccountList);
+
+// export default EnhancedAccountList;
+
+export default enhance(AccountList);
+
+
+// export default withObservables([], () => ({
+//     accounts: accountsCollection.query(),
+// }))(AccountList);
+
+
+// export default enhance(AccountList);

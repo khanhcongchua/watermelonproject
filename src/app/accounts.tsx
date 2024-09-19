@@ -27,7 +27,18 @@ export default function AccountsScreen() {
         setCap('');
         setTap('');
         
-    }
+    };
+
+
+    // const onTest = async () =>{
+    //     await database.write(async () => {
+    //         const accounts = await accountsCollection.query().fetch();
+    //         const account = accounts[0];
+    //         account.update(updateAccount => {
+    //             updateAccount.name = '1234445';
+    //         });
+    //     });
+    // };
 
     
 
@@ -67,7 +78,7 @@ export default function AccountsScreen() {
 
 
     <Button title='Add Account' onPress={createAccount}/>
-        
+    {/* <Button title='Test update' onPress={onTest} /> */}
 
     </View>
   );
