@@ -29,18 +29,11 @@ export default function AccountsScreen() {
         
     }
 
-    const onRead = async () =>{
-        // const accountsCollection = database.get<Account>('accounts');
-        const accounts = await accountsCollection.query().fetch();
-        console.log(accounts);
-        
-        
-        
-    } 
+    
 
   return (
     <View style={{gap: 5, padding: 5,}}>
-      <Text>Account</Text>
+      {/* <Text>Account</Text> */}
         <View style={styles.header}>
             <Text>Name</Text>
             <Text>Cap</Text>
@@ -74,7 +67,7 @@ export default function AccountsScreen() {
 
 
     <Button title='Add Account' onPress={createAccount}/>
-        <Button title='Test' onPress={onRead}/>
+        
 
     </View>
   );

@@ -2,10 +2,11 @@ import { FlatList } from "react-native";
 import AccountListItem from "./AccountListItem";
 import { useEffect, useState } from "react";
 import { accountsCollection } from "../db";
+import Account from "../model/Account";
 
 export default function AccountList(){
 
-    const [accounts, setAccounts] = useState([]);
+    const [accounts, setAccounts] = useState<Account[]>([]);
 
 
     useEffect(() =>{
@@ -16,15 +17,14 @@ export default function AccountList(){
         fetchAccounts();
     }, [])
 
-    console.log(accounts);
-    console.log("hello");
+    
 
 
     return(
         <FlatList 
             data={accounts}
             contentContainerStyle={{gap: 5, }}
-            renderItem={() => <AccountListItem/>}
+            renderItem={({item}) => <AccountListItem account = {item}/>}
         />
     );
 }
