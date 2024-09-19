@@ -3,7 +3,7 @@ import AccountListItem from '../components/AccountListItem';
 import AccountList from '../components/AccountList';
 import Entypo from '@expo/vector-icons/Entypo';
 import { useState } from 'react';
-import database,{accounts} from '../db';
+import database,{accountsCollection} from '../db';
 import Account from '../model/Account';
 
 export default function AccountsScreen() {
@@ -12,24 +12,30 @@ export default function AccountsScreen() {
     const [tap, setTap] = useState('');
 
 
-    const createAccount = () => {
-        console.warn('create account, ', name);
+    const createAccount = async () => {
+        // console.warn('create account, ', name);
+
+        await database.write(async () => {
+            await accountsCollection.create((account) =>{
+                account.name = name;
+                account.cap = Number.parseFloat(cap);
+                account.tap = Number.parseFloat(tap); 
+            })
+        });
+
+        setName('');
+        setCap('');
+        setTap('');
         
     }
 
     const onRead = async () =>{
-        const accountsCollection = database.get<Account>('accounts');
+        // const accountsCollection = database.get<Account>('accounts');
         const accounts = await accountsCollection.query().fetch();
         console.log(accounts);
         
         
-        await database.write(async () => {
-            accountsCollection.create((account) =>{
-                account.name = 'test';
-                account.cap = 10.5;
-                account.tap = 20.1; 
-            })
-        })
+        
     } 
 
   return (
@@ -68,7 +74,7 @@ export default function AccountsScreen() {
 
 
     <Button title='Add Account' onPress={createAccount}/>
-        <Button title='Read' onPress={onRead}/>
+        <Button title='Test' onPress={onRead}/>
 
     </View>
   );
