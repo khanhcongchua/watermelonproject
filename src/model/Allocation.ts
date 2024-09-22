@@ -10,6 +10,6 @@ export default class Allocation extends Model {
 
   
   @field('income') income: number;
-  @readonly @date('create_at') createdAt
+  @readonly @date('create_at') createdAt: Date;
   
 }
