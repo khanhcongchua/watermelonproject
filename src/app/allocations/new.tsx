@@ -1,7 +1,7 @@
 import { Stack,router } from 'expo-router';
 import { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import database, { accountsCollection, allocationsCollection } from '../../db';
+import database, { accountAllocationColection, accountsCollection, allocationsCollection } from '../../db';
 import { withObservables } from '@nozbe/watermelondb/react';
 import Account from '../../model/Account';
 import Allocation from '../../model/Allocation';
@@ -12,9 +12,22 @@ function NewAllocationScreen({ accounts }: {accounts: Account[]}) {
 
   const save = async () => {
     await database.write(async () => {
-      allocationsCollection.create((newAllocation) =>{
+      const allocation = await allocationsCollection.create((newAllocation) =>{
         newAllocation.income = Number.parseFloat(income);
       });
+
+
+      await Promise.all(  
+            accounts.map(account => accountAllocationColection.create((item) => {
+              item.account.set(account);
+              item.allocation.set(allocation);
+              item.cap= account.cap;
+              item.amount= allocation.income * account.cap / 100;
+          })
+        )
+      );
+
+      
     });
 
     // Allocation.create(Number.parseFloat(income));

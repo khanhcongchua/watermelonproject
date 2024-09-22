@@ -1,12 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Link } from 'expo-router';
+import { StyleSheet, Text, View } from 'react-native';
+import { Link, Stack } from 'expo-router';
 import Allocation from '../../model/Allocation';
 import AllocationsList from '../../components/AllocationsList';
-export default function App() {
+import { useEffect } from 'react';
+import { accountAllocationColection } from '../../db';
+export default function HomeScreen() {
+
+  
+
   return (
     <View style={styles.container}>
-      <Text>Alloctions</Text>
+      <Stack.Screen options={{title: 'Allocations'}}/>
 
       <Link href="/allocations/new" asChild>
         <Text style={styles.button}>New Allocation</Text>
