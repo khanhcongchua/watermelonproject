@@ -17,7 +17,7 @@ function AllocationsList({allocations}:{allocations: Allocation[]}){
 }
 
 const enhance = withObservables([], () => ({
-    allocations:allocationsCollection.query(Q.sortBy('create_at', Q.desc)),
+    allocations:allocationsCollection.query(Q.sortBy('create_at', Q.asc)),
 }))
 
 // 
