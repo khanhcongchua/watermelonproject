@@ -1,46 +1,33 @@
-import { Slot, Stack, Tabs } from "expo-router";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-export default function RootLayout(){
-    return(
-        <Tabs>
-            <Tabs.Screen name="allocations" options={{
-                title:'Allocation', 
-                headerShown:false,
-                tabBarIcon: ({size, color}) =>  (
-                    <MaterialIcons 
-                        name="account-tree" 
-                        size={24} 
-                        color="black" />
-                ),
-                }}
-            />
+import { View, Text } from 'react-native'
+import React from 'react'
+import { Redirect, Slot } from 'expo-router'
+import AuthProvider, {useAuth} from '../providers/AuthProvider'
 
+const RootLayout = () => {
 
-            <Tabs.Screen name="accounts" options={{
-                title:'Accounts', 
-                tabBarIcon: ({size, color}) =>  (
-                    
+    // const {isAuthenticated } = useAuth();
 
+    // if(!isAuthenticated){
+    //     return <Redirect href={'/login'} />;
+    // }
 
+    // return <Slot />;
 
-                        <MaterialIcons 
-                    name="account-box" 
-                    size={size} 
-                    color={color} 
-                    />
-                ),
-                }}
-            />
-
-
-            <Tabs.Screen name="index" options={{href:null}}/>
-
-
-
-                
-                
-        </Tabs>
-        
-    ) 
+    return(<AuthProvider>
+            <Slot />
+        </AuthProvider>);
     
-}
+            
+        
+};
+
+
+// const RootLayoutWithProvider = () => {
+//     return (
+//         <AuthProvider>
+//             <RootLayout/>
+//         </AuthProvider>
+//     );
+// }
+
+export default RootLayout;

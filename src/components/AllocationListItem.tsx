@@ -28,7 +28,7 @@ const AllocationListItem = ({
 
         <View style={{gap: 5, padding: 5, }}>
             {accountAllocations.map((item) => (
-                <AccountAllocationItem accountAllocation={item}/>
+                <AccountAllocationItem key={item.id} accountAllocation={item}/>
             ))}
         </View>
     </View>

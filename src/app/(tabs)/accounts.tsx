@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View,Button, TextInput } from 'react-native';
-import AccountListItem from '../components/AccountListItem';
-import AccountList from '../components/AccountList';
+import AccountListItem from '../../components/AccountListItem';
+import AccountList from '../../components/AccountList';
 import Entypo from '@expo/vector-icons/Entypo';
 import { useState } from 'react';
-import database,{accountsCollection} from '../db';
-import Account from '../model/Account';
+import database,{accountsCollection} from '../../db';
+import Account from '../../model/Account';
 
 export default function AccountsScreen() {
     const [name, setName] = useState('');

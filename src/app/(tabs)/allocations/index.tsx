@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { Link, Stack } from 'expo-router';
-import Allocation from '../../model/Allocation';
-import AllocationsList from '../../components/AllocationsList';
+// import Allocation from '../../model/Allocation';
+import AllocationsList from '../../../components/AllocationsList';
 import { useEffect } from 'react';
-import { accountAllocationColection } from '../../db';
+// import { accountAllocationColection } from '../../db';
 export default function HomeScreen() {
 
   
