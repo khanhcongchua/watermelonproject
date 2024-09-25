@@ -5,11 +5,14 @@ import Entypo from '@expo/vector-icons/Entypo';
 import { useState } from 'react';
 import database,{accountsCollection} from '../../db';
 import Account from '../../model/Account';
+import { useAuth } from '../../providers/AuthProvider';
 
 export default function AccountsScreen() {
     const [name, setName] = useState('');
     const [cap, setCap] = useState('');
     const [tap, setTap] = useState('');
+
+    const {user} = useAuth();
 
 
     const createAccount = async () => {
@@ -20,6 +23,7 @@ export default function AccountsScreen() {
                 account.name = name;
                 account.cap = Number.parseFloat(cap);
                 account.tap = Number.parseFloat(tap); 
+                account.userId = user?.id;
             })
         });
 

@@ -1,6 +1,6 @@
 // model/Post.js
 import { Model } from '@nozbe/watermelondb'
-import { field, text } from '@nozbe/watermelondb/decorators'
+import { field, text, nochange } from '@nozbe/watermelondb/decorators'
 
 
 export default class Account extends Model {
@@ -11,4 +11,7 @@ export default class Account extends Model {
   @text('name') name: string;
   @field('tap') tap: number;
   @field('cap') cap: number;
+  @nochange @field('user_id') userId: string;
+
+
 }

@@ -1,7 +1,7 @@
 import { accountsCollection } from './../db/index';
 // model/Post.js
 import { Model } from '@nozbe/watermelondb'
-import { date, field, readonly, text, writer, children } from '@nozbe/watermelondb/decorators'
+import { date, field, readonly, text, writer, children, nochange } from '@nozbe/watermelondb/decorators'
 import { allocationsCollection } from '../db';
 import { Associations } from '@nozbe/watermelondb/Model';
 import AccountAllocation from './AccountAllocation';
@@ -22,6 +22,8 @@ export default class Allocation extends Model {
   //     newAllocation.income = income;
   //   });
   // }
+  @nochange @field('user_id') userId: string;
+
 
 
   @children('account_allocations') accountAllocations;

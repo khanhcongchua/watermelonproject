@@ -6,7 +6,8 @@ import {
     readonly, 
     date, 
     relation, 
-    immutableRelation
+    immutableRelation,
+    nochange
 } from '@nozbe/watermelondb/decorators';
 import { Associations } from '@nozbe/watermelondb/Model';
 
@@ -25,6 +26,8 @@ export default class AccountAllocation extends Model {
   @readonly @date('create_at') createdAt: Date;
   @field('cap') cap: number;
   @field('amount') amount: number;
+  @nochange @field('user_id') userId: string;
+
 
   @immutableRelation('accounts', 'account_id') account;
   @immutableRelation('allocations', 'allocation_id') allocation;

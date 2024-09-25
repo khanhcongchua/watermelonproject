@@ -35,6 +35,9 @@ import {
         setSession(session);
       });
     }, []);
+
+
+    console.log(session);
   
     return (
       <AuthContext.Provider
