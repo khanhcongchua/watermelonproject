@@ -1,12 +1,14 @@
 // model/Post.js
 import { Model } from '@nozbe/watermelondb'
-import { field, text, nochange } from '@nozbe/watermelondb/decorators'
+import { field, text, nochange, readonly, date } from '@nozbe/watermelondb/decorators'
 
 
 export default class Account extends Model {
   static table = 'accounts'
 
 
+  @readonly @date('create_at') createdAt: Date;
+  @readonly @date('updated_at') updatedAt: Date;
 
   @text('name') name: string;
   @field('tap') tap: number;
