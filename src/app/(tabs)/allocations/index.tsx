@@ -1,20 +1,34 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import { Link, Stack } from 'expo-router';
 // import Allocation from '../../model/Allocation';
 import AllocationsList from '../../../components/AllocationsList';
 import {Feather} from '@expo/vector-icons';
 import { useEffect } from 'react';
 import { mySync } from '../../../db/sync';
+import { supabase } from '../../../lib/supabase';
+import * as Crypto from 'expo-crypto';
+
 // import { accountAllocationColection } from '../../db';
 export default function HomeScreen() {
 
+  const test = async() =>{
+    const res  = await supabase.rpc('create_account', {
+      _id: Crypto.randomUUID(), 
+      _user_id: Crypto.randomUUID(),
+      _name: 'Example Name', 
+      _cap: 1000,
+      _tap: 500,
+      _create_at: new Date().toISOString(),
+      _updated_at: new Date().toISOString(),
+    });
+    console.log(res);
+  }
   
 
   return (
     <View style={styles.container}>
-      <Stack.Screen options={
-        {
+      <Stack.Screen options={{
           title: 'Allocations',
           headerRight: () => (
             <Feather 
@@ -23,11 +37,10 @@ export default function HomeScreen() {
               color="green" 
               onPress={mySync}
             />
-        ),
-        }
-      }
-        
-      />
+          ),
+        }}
+    />
+    <Button title='Test' onPress={test}/>
 
       <Link href="/allocations/new" asChild>
         <Text style={styles.button}>New Allocation</Text>
