@@ -37,7 +37,7 @@ import {
     }, []);
 
 
-    console.log(session);
+    // console.log(session);
   
     return (
       <AuthContext.Provider

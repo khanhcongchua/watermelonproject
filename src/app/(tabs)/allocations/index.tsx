@@ -3,7 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Link, Stack } from 'expo-router';
 // import Allocation from '../../model/Allocation';
 import AllocationsList from '../../../components/AllocationsList';
+import {Feather} from '@expo/vector-icons';
 import { useEffect } from 'react';
+import { mySync } from '../../../db/sync';
 // import { accountAllocationColection } from '../../db';
 export default function HomeScreen() {
 
@@ -11,7 +13,21 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{title: 'Allocations'}}/>
+      <Stack.Screen options={
+        {
+          title: 'Allocations',
+          headerRight: () => (
+            <Feather 
+              name="refresh-cw" 
+              size={24} 
+              color="green" 
+              onPress={mySync}
+            />
+        ),
+        }
+      }
+        
+      />
 
       <Link href="/allocations/new" asChild>
         <Text style={styles.button}>New Allocation</Text>

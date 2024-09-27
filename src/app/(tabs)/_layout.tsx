@@ -1,6 +1,7 @@
 import { Redirect, Slot, Stack, Tabs } from "expo-router";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useAuth } from "../../providers/AuthProvider";
+import {Feather} from '@expo/vector-icons';
 export default function TabsLayout(){
 
     const {isAuthenticated} = useAuth();
@@ -30,18 +31,16 @@ export default function TabsLayout(){
                 title:'Accounts', 
                 // headerShown: false,
                 tabBarIcon: ({size, color}) =>  (
-                    
-
-
-
                         <MaterialIcons 
                     name="account-box" 
                     size={size} 
                     color={color} 
                     />
                 ),
-                }}
-            />
+
+                
+            }}
+        />
 
 
             {/* <Tabs.Screen name="index" options={{href:null}}/> */}
