@@ -26,7 +26,7 @@ const AllocationListItem = ({
         </View>
 
 
-        <View style={{gap: 5, padding: 5, }}>
+        <View style={{gap: 10, padding: 5, }}>
             {accountAllocations.map((item) => (
                 <AccountAllocationItem key={item.id} accountAllocation={item}/>
             ))}
@@ -65,5 +65,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#3A5A40'
     },
+    date:{}
 })
 

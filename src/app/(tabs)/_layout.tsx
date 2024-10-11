@@ -39,8 +39,18 @@ export default function TabsLayout(){
                 ),
 
                 
-            }}
-        />
+                }}
+            />
+
+            <Tabs.Screen
+                name="session"
+                options={{
+                title: 'Session Info',
+                tabBarIcon: ({ size, color }) => (
+                    <MaterialIcons name="info" size={size} color={color} />
+                ),
+                }}
+            />
 
 
             {/* <Tabs.Screen name="index" options={{href:null}}/> */}

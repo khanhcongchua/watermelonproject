@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
 import { Link, Stack } from 'expo-router';
 // import Allocation from '../../model/Allocation';
 import AllocationsList from '../../../components/AllocationsList';
@@ -8,6 +8,9 @@ import { useEffect } from 'react';
 import { mySync } from '../../../db/sync';
 import { supabase } from '../../../lib/supabase';
 import * as Crypto from 'expo-crypto';
+import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
+
 
 // import { accountAllocationColection } from '../../db';
 export default function HomeScreen() {
@@ -24,7 +27,21 @@ export default function HomeScreen() {
     });
     console.log(res);
   }
-  
+
+  // Đồng bộ dữ liệu khi màn hình được load
+  useEffect(() => {
+    const syncData = async () => {
+      try {
+        await mySync();  // Gọi hàm đồng bộ khi màn hình này load
+      } catch (error) {
+        console.log('Error syncing data: ', error);
+      }
+    };
+
+    syncData();  // Gọi hàm sync ngay khi component được render lần đầu
+  }, []);  // Mảng rỗng để chỉ chạy khi component mount lần đầu
+
+
 
   return (
     <View style={styles.container}>
@@ -40,14 +57,24 @@ export default function HomeScreen() {
           ),
         }}
     />
-    <Button title='Test' onPress={test}/>
+    {/* <Button title='Test' onPress={test}/> */}
 
-      <Link href="/allocations/new" asChild>
+      {/* <Link href="/allocations/new" asChild>
         <Text style={styles.button}>New Allocation</Text>
-      </Link>
+      </Link> */}
+
+
+      <TouchableOpacity 
+        style={styles.floatingButton} 
+        onPress={() => router.push('/allocations/new')}
+      >
+        <Feather name="plus" size={28} color="#fff" />
+      </TouchableOpacity>
 
       <AllocationsList/>
 
+
+        
       <StatusBar style="auto" />
     </View>
   );
@@ -72,4 +99,23 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
 
   },  
+  floatingButton: {
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+    backgroundColor: '#000',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.3,
+    shadowRadius: 20,
+    elevation: 5,
+    zIndex: 10, 
+  },
 });
+
+
